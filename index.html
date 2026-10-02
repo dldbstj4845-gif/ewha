@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interface Design — Ewha Womans University</title>
+  <meta name="description" content="2026년 2학기 이화여자대학교 조형예술대학 Interface Design 수업 소개" />
+  <style>
+    :root{
+      --ewha:#0f5b46;
+      --ewha-dark:#0a3f31;
+      --ewha-soft:#dfece6;
+      --cream:#f7f3eb;
+      --paper:#fffdf8;
+      --ink:#1f2a25;
+      --muted:#66706b;
+      --line:#dfe4df;
+      --accent:#e8d9b5;
+      --shadow:0 18px 50px rgba(29,64,51,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--cream);
+      color:var(--ink);
+      font-family:Inter, Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height:1.6;
+      letter-spacing:-0.02em;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(1180px, calc(100% - 40px));margin:0 auto}
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      border-bottom:1px solid rgba(15,91,70,.08);
+      background:rgba(247,243,235,.86);
+      backdrop-filter:blur(14px);
+    }
+
+    nav{
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--ewha-dark);
+      white-space:nowrap;
+    }
+
+    .brand-mark{
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--ewha);
+      color:white;
+      font-size:13px;
+      font-family:Georgia, serif;
+    }
+
+    .navlinks{display:flex;gap:24px;font-size:14px;color:var(--muted)}
+    .navlinks a:hover{color:var(--ewha)}
+
+    .hero{
+      padding:112px 0 88px;
+      overflow:hidden;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:64px;
+      align-items:end;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 11px;
+      border:1px solid rgba(15,91,70,.16);
+      border-radius:999px;
+      color:var(--ewha);
+      background:rgba(255,255,255,.35);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:8px;height:8px;border-radius:50%;background:var(--ewha);
+    }
+
+    h1{
+      margin:26px 0 24px;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(58px, 8vw, 118px);
+      line-height:.88;
+      letter-spacing:-.06em;
+      color:var(--ewha-dark);
+      font-weight:500;
+    }
+
+    .hero-copy{
+      font-size:clamp(18px,2vw,24px);
+      max-width:720px;
+      color:#39453f;
+      margin:0;
+    }
+
+    .hero-side{
+      background:var(--paper);
+      border:1px solid rgba(15,91,70,.08);
+      box-shadow:var(--shadow);
+      border-radius:28px;
+      padding:28px;
+    }
+
+    .meta-label{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .meta-value{margin-top:5px;font-size:18px;font-weight:700}
+    .meta-row{padding:15px 0;border-bottom:1px solid var(--line)}
+    .meta-row:last-child{border-bottom:0}
+
+    .section{padding:94px 0}
+    .section-title{
+      max-width:760px;
+      margin-bottom:48px;
+    }
+    .kicker{
+      margin-bottom:10px;
+      color:var(--ewha);
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    h2{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(38px,5vw,66px);
+      line-height:1.03;
+      margin:0 0 14px;
+      font-weight:500;
+      color:var(--ewha-dark);
+    }
+    .section-title p{margin:0;color:var(--muted);font-size:18px}
+
+    .principles{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .card{
+      background:var(--paper);
+      border:1px solid rgba(15,91,70,.08);
+      border-radius:24px;
+      padding:28px;
+      min-height:230px;
+    }
+    .card-num{
+      font-family:Georgia,serif;
+      color:var(--ewha);
+      font-size:22px;
+      margin-bottom:48px;
+    }
+    .card h3{font-size:22px;margin:0 0 10px;color:var(--ewha-dark)}
+    .card p{margin:0;color:var(--muted)}
+
+    .curriculum{
+      background:var(--paper);
+      border-top:1px solid rgba(15,91,70,.07);
+      border-bottom:1px solid rgba(15,91,70,.07);
+    }
+
+    .week-list{border-top:1px solid var(--line)}
+    .week{
+      display:grid;
+      grid-template-columns:110px 1fr 1fr;
+      gap:28px;
+      align-items:start;
+      padding:24px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .week-no{
+      color:var(--ewha);
+      font-family:Georgia,serif;
+      font-size:18px;
+    }
+    .week strong{font-size:19px;color:var(--ink)}
+    .week p{margin:0;color:var(--muted)}
+
+    .vibe{
+      padding:94px 0;
+    }
+    .vibe-panel{
+      position:relative;
+      overflow:hidden;
+      border-radius:32px;
+      background:var(--ewha);
+      color:#f7fbf8;
+      padding:58px;
+    }
+    .vibe-panel::after{
+      content:"";
+      position:absolute;
+      width:360px;height:360px;border-radius:50%;
+      right:-110px;top:-130px;
+      background:rgba(255,255,255,.07);
+    }
+    .vibe h2{color:white;max-width:760px}
+    .vibe p{max-width:760px;color:rgba(255,255,255,.78);font-size:18px}
+    .vibe-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+    .vibe-tags span{
+      padding:9px 12px;
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:999px;
+      font-size:13px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+    .project{
+      border-radius:26px;
+      padding:32px;
+      border:1px solid rgba(15,91,70,.09);
+      background:rgba(255,255,255,.42);
+    }
+    .project small{color:var(--ewha);font-weight:800}
+    .project h3{font-size:27px;margin:10px 0 12px}
+    .project p{color:var(--muted);margin:0}
+
+    .footer{
+      padding:46px 0 70px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding-top:22px;
+      border-top:1px solid var(--line);
+    }
+
+    .scroll-note{
+      display:inline-flex;
+      margin-top:30px;
+      gap:8px;
+      color:var(--ewha);
+      font-size:14px;
+      font-weight:700;
+    }
+
+    @media (max-width:820px){
+      .navlinks{display:none}
+      .hero{padding-top:82px}
+      .hero-grid,.principles,.project-grid{grid-template-columns:1fr}
+      .hero-grid{gap:36px}
+      .week{grid-template-columns:72px 1fr}
+      .week p{grid-column:2}
+      .vibe-panel{padding:38px 26px}
+      .section{padding:70px 0}
+      .footer-row{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#top">
+          <span class="brand-mark">E</span>
+          <span>EWHA · Interface Design</span>
+        </a>
+        <div class="navlinks">
+          <a href="#about">About</a>
+          <a href="#curriculum">Curriculum</a>
+          <a href="#vibe">Vibe Coding</a>
+          <a href="#project">Project</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">2026 Fall Semester</span>
+          <h1>Interface<br>Design</h1>
+          <p class="hero-copy">
+            화면을 예쁘게 만드는 것을 넘어, 사람과 디지털 제품이 만나는 방식을 설계합니다.
+            관찰하고, 구조화하고, 프로토타이핑하며 작은 아이디어를 실제 인터페이스로 발전시킵니다.
+          </p>
+          <a class="scroll-note" href="#about">Explore the course ↓</a>
+        </div>
+
+        <aside class="hero-side" aria-label="course information">
+          <div class="meta-row">
+            <div class="meta-label">University</div>
+            <div class="meta-value">이화여자대학교</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">College</div>
+            <div class="meta-value">조형예술대학</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Course</div>
+            <div class="meta-value">Interface Design</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-label">Semester</div>
+            <div class="meta-value">2026년 2학기</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="wrap">
+        <div class="section-title">
+          <div class="kicker">Course Direction</div>
+          <h2>Design the experience,<br>not just the screen.</h2>
+          <p>
+            UI 디자인의 기본 원리에서 시작해 리서치, 정보 구조, 인터랙션,
+            프로토타이핑 그리고 AI를 활용한 빠른 구현까지 연결합니다.
+          </p>
+        </div>
+
+        <div class="principles">
+          <article class="card">
+            <div class="card-num">01</div>
+            <h3>Observe</h3>
+            <p>사용자의 행동과 문제를 관찰하고, 인터페이스가 해결해야 할 핵심 경험을 정의합니다.</p>
+          </article>
+          <article class="card">
+            <div class="card-num">02</div>
+            <h3>Structure</h3>
+            <p>정보 구조, 레이아웃, 타이포그래피와 디자인 시스템을 통해 명확한 화면 구조를 만듭니다.</p>
+          </article>
+          <article class="card">
+            <div class="card-num">03</div>
+            <h3>Prototype</h3>
+            <p>Figma와 코드 기반 프로토타이핑을 오가며 아이디어를 실제로 작동하는 경험으로 발전시킵니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section curriculum" id="curriculum">
+      <div class="wrap">
+        <div class="section-title">
+          <div class="kicker">Curriculum</div>
+          <h2>From fundamentals<br>to working interfaces.</h2>
+          <p>한 학기 동안 UI 디자인의 기본기와 실험적인 제작 방식을 함께 다룹니다.</p>
+        </div>
+
+        <div class="week-list">
+          <div class="week">
+            <div class="week-no">01–03</div>
+            <strong>UI Fundamentals</strong>
+            <p>사용자 인터페이스의 역할, 좋은 UI의 조건, 시각적 위계, 타이포그래피와 레이아웃.</p>
+          </div>
+          <div class="week">
+            <div class="week-no">04–06</div>
+            <strong>User Flow & Information Architecture</strong>
+            <p>사용자 시나리오, 화면 흐름, 내비게이션 구조와 와이어프레임 설계.</p>
+          </div>
+          <div class="week">
+            <div class="week-no">07–09</div>
+            <strong>Components & Design System</strong>
+            <p>재사용 가능한 컴포넌트, 상태와 변형, UI 패턴과 간단한 디자인 시스템 구축.</p>
+          </div>
+          <div class="week">
+            <div class="week-no">10–12</div>
+            <strong>Interaction & Prototyping</strong>
+            <p>마이크로 인터랙션, 전환, 피드백, Figma 프로토타입을 활용한 경험 검증.</p>
+          </div>
+          <div class="week">
+            <div class="week-no">13–15</div>
+            <strong>Vibe Coding & Final Project</strong>
+            <p>AI 기반 코딩 도구를 활용해 디자인 의도를 빠르게 구현하고, 최종 인터페이스를 완성.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vibe" id="vibe">
+      <div class="wrap">
+        <div class="vibe-panel">
+          <div class="kicker" style="color:#d9eee5">Vibe Coding</div>
+          <h2>Prompt, make, test,<br>and refine.</h2>
+          <p>
+            코드를 처음부터 완벽히 작성하는 것이 목표가 아닙니다.
+            아이디어를 자연어로 설명하고, AI와 함께 HTML/CSS/JavaScript 기반의 프로토타입을 만들면서
+            디자인과 구현 사이의 거리를 좁혀봅니다. 결과를 그대로 받아들이기보다,
+            디자이너의 관점으로 수정하고 판단하는 과정에 집중합니다.
+          </p>
+          <div class="vibe-tags">
+            <span>Prompting</span>
+            <span>HTML / CSS</span>
+            <span>Rapid Prototyping</span>
+            <span>AI-assisted Coding</span>
+            <span>Design Critique</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="project">
+      <div class="wrap">
+        <div class="section-title">
+          <div class="kicker">Final Outcome</div>
+          <h2>One idea,<br>one working experience.</h2>
+          <p>학기 말에는 하나의 명확한 문제를 선택하고, 디자인부터 구현까지 직접 연결합니다.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project">
+            <small>PROCESS</small>
+            <h3>Research → UI → Prototype</h3>
+            <p>문제 정의, 사용자 흐름, 인터페이스 설계, 프로토타입 테스트의 전 과정을 기록합니다.</p>
+          </article>
+          <article class="project">
+            <small>OUTPUT</small>
+            <h3>Interactive Final Project</h3>
+            <p>Figma 프로토타입 또는 vibe coding을 활용한 웹 기반 인터랙티브 결과물을 완성합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <span>EWHA WOMANS UNIVERSITY · College of Art & Design</span>
+      <span>Interface Design · Fall 2026</span>
+    </div>
+  </footer>
+</body>
+</html>
